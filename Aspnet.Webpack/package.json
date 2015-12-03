@@ -1,0 +1,19 @@
+{
+  "name": "ASP.NET",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build-dev": "webpack"
+  },
+  "dependencies": {
+    "lorem-ipsum": "^1.0.3"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.34",
+    "babel-loader": "^5.4.0",
+    "css-loader": "^0.23.0",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  }
+}
