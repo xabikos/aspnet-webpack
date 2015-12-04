@@ -3,7 +3,7 @@
 import ContentGenerator from './contentGenerator';
 
 const generatedContent = document.createElement('p');
-const loremText = ContentGenerator.getContent(15);
+const loremText = ContentGenerator.getContent(45);
 generatedContent.innerHTML = loremText;
 
 document.body.appendChild(generatedContent);
