@@ -32,7 +32,7 @@ namespace Aspnet.Webpack.Extensions {
 		}
 
 		private static string CreateWebpackArguments(WebpackOptions options) {
-			var result = "--module-bind 'js=babel-loader'  --module-bind 'scss=style!css!sass' ";
+			var result = "--module-bind js=babel  --module-bind scss=style!css!sass ";
 			var entryPoint = $"--entry ./{options.EntryPoint} ";
 			result += entryPoint;
 			var outputPath = $"--output-path {options.OutputPath} ";
