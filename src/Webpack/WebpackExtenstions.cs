@@ -5,19 +5,17 @@ using System.IO;
 
 namespace Webpack {
 	public static class WebpackExtensions {
-		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, WebpackOptions options) {
-			var args = CreateWebpackArguments(options);
 
-			var webpack = Path.Combine(Directory.GetCurrentDirectory(), "node_modules", ".bin", "webpack");
-			var osEnVariable = Environment.GetEnvironmentVariable("OS");
-			if (!string.IsNullOrEmpty(osEnVariable) && string.Equals(osEnVariable, "Windows_NT", StringComparison.OrdinalIgnoreCase)) {
-				webpack += ".cmd";
-			}
+		private const string webpack = "webpack";
+		private const string webpacDevServer = "webpack-dev-server";
+
+		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, WebpackOptions options) {
+			EnsuereNodeModluesInstalled(options);
 
 			Process process = new Process();
 			process.StartInfo = new ProcessStartInfo() {
-				FileName = webpack,
-				Arguments = args,
+				FileName = GetNodeExecutable(webpack),
+				Arguments = ArgumentsHelper.GetWebpackArguments(options),
 				UseShellExecute = false
 			};
 			process.Start();
@@ -25,14 +23,23 @@ namespace Webpack {
 			return app;
 		}
 
-		private static string CreateWebpackArguments(WebpackOptions options) {
-			var result = "--module-bind js=babel  --module-bind scss=style!css!sass ";
-			var entryPoint = $"--entry ./{options.EntryPoint} ";
-			result += entryPoint;
-			var outputPath = $"--output-path {options.OutputPath} ";
-			result += outputPath;
-			result += "--output-filename bundle.js";
-			return result;
+		private static void EnsuereNodeModluesInstalled(WebpackOptions options) {
+			if (!File.Exists(GetNodeExecutable(webpack))) {
+				throw new InvalidOperationException("webpack is not installed");
+			}
+			if (options.UseDevelopmentServer && !File.Exists(GetNodeExecutable(webpacDevServer))) {
+				throw new InvalidOperationException("webpack dev server is not installed");
+			}
 		}
+
+		private static string GetNodeExecutable(string module) {
+			var executable = Path.Combine(Directory.GetCurrentDirectory(), "node_modules", ".bin", module);
+			var osEnVariable = Environment.GetEnvironmentVariable("OS");
+			if (!string.IsNullOrEmpty(osEnVariable) && string.Equals(osEnVariable, "Windows_NT", StringComparison.OrdinalIgnoreCase)) {
+				executable += ".cmd";
+			}
+			return executable;
+		}
+
 	}
 }
