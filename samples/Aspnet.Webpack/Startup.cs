@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Aspnet.Webpack.Extensions;
+using Webpack;
 
-namespace Aspnet.Webpack
-{
+namespace Aspnet.Webpack {
 	public class Startup
 	{
 		public Startup(IHostingEnvironment env)
@@ -38,7 +33,7 @@ namespace Aspnet.Webpack
 			loggerFactory.AddDebug();
 			if (env.IsDevelopment())
 			{
-				app.UseWebpack(env, new WebpackOptions());
+				app.UseWebpack(new WebpackOptions());
 				app.UseDeveloperExceptionPage();
 			}
 			else

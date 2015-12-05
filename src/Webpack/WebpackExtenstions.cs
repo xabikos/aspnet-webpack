@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNet.Builder;
+using System;
 using System.Diagnostics;
-using Microsoft.AspNet.Builder;
-using Webpack.Commands;
 using System.IO;
-using Microsoft.AspNet.Hosting;
 
-namespace Aspnet.Webpack.Extensions {
+namespace Webpack {
 	public static class WebpackExtensions {
-		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, IHostingEnvironment env, WebpackOptions options) {
+		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, WebpackOptions options) {
 			var args = CreateWebpackArguments(options);
 
 			var webpack = Path.Combine(Directory.GetCurrentDirectory(), "node_modules", ".bin", "webpack");
@@ -23,8 +18,7 @@ namespace Aspnet.Webpack.Extensions {
 			process.StartInfo = new ProcessStartInfo() {
 				FileName = webpack,
 				Arguments = args,
-				UseShellExecute = false,
-				WorkingDirectory = Directory.GetCurrentDirectory()
+				UseShellExecute = false
 			};
 			process.Start();
 
@@ -40,24 +34,5 @@ namespace Aspnet.Webpack.Extensions {
 			result += "--output-filename bundle.js";
 			return result;
 		}
-	}
-
-	public class WebpackOptions {
-
-		public WebpackOptions(string entryPoint = "app/index.js", string outputPath = "wwwroot") {
-			EntryPoint = entryPoint;
-			OutputPath = outputPath;
-		}
-
-		/// <summary>
-		/// The relative path to applications root
-		/// </summary>
-		public string EntryPoint { get; set; }
-
-		/// <summary>
-		/// The relative path of the output
-		/// </summary>
-		public string OutputPath { get; set; }
-
 	}
 }
