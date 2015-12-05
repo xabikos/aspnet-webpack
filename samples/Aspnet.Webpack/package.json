@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "webpack-dev-server",
-    "build-dev": "webpack"
+    "build-dev": "webpack  --module-bind 'js=babel-loader'  --module-bind 'scss=style!css!sass' --entry ./app/index.js --output-path wwwroot --output-file bundle.js"
   },
   "dependencies": {
     "lorem-ipsum": "^1.0.3"
