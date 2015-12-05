@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace Webpack {
 	public class WebpackOptions {
+		public static WebpackOptions CurrentOptions { get; set; }
+
 		public WebpackOptions(
 			string entryPoint = "app/index.js", string outputPath = "wwwroot",
 			string outputFileName = "bundle.js", bool handleStyles = true) {

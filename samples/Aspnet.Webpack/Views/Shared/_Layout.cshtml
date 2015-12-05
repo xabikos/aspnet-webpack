@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Webpack
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -43,6 +44,7 @@
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        @Html.InitWebpackScript()
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
@@ -54,7 +56,6 @@
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
     </environment>
-    <script src="http://localhost:3000/js/bundle.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

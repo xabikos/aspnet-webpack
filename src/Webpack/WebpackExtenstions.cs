@@ -12,6 +12,8 @@ namespace Webpack {
 		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, WebpackOptions options) {
 			EnsuereNodeModluesInstalled(options);
 
+			WebpackOptions.CurrentOptions = options;
+
 			Process process = new Process();
 			process.StartInfo = new ProcessStartInfo() {
 				FileName = GetNodeExecutable(webpack),
