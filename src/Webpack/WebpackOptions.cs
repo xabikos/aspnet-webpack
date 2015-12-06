@@ -21,6 +21,13 @@ namespace Webpack {
 		}
 
 		/// <summary>
+		/// The relative path to an external configuration file
+		/// If this value provided then some of the values should be specified through this options too
+		/// In most cases should be avoided and just use the strongly type options
+		/// </summary>
+		public string ExternalConfigurationFile { get; set; }
+
+		/// <summary>
 		/// The relative path to applications root
 		/// </summary>
 		public string EntryPoint { get; set; }

@@ -12,10 +12,18 @@ namespace Webpack {
 
 		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, IHostingEnvironment env, WebpackOptions options) {
 			EnsuereNodeModluesInstalled(options);
+			var arguments = "";
+			// If an external configuration file is provided then call webpack or webpack-dev-server with that configuration file
+			if (!string.IsNullOrEmpty(options.ExternalConfigurationFile)) {
+				arguments = $"--config {options.ExternalConfigurationFile}";
+			}
+			else {
+				arguments = ArgumentsHelper.GetWebpackArguments(env.WebRootPath, options);
+			}
 			Process process = new Process();
 			process.StartInfo = new ProcessStartInfo() {
 				FileName = options.EnableHotLoading ? GetNodeExecutable(webpacDevServer) : GetNodeExecutable(webpack),
-				Arguments = ArgumentsHelper.GetWebpackArguments(env.WebRootPath, options),
+				Arguments = arguments,
 				UseShellExecute = false
 			};
 			process.Start();
