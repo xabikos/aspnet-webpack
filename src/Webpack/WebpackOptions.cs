@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Webpack {
 
@@ -16,6 +17,7 @@ namespace Webpack {
 			OutputFileName = outputFileName;
 			HandleStyles = handleStyles;
 			DevServerOptions = new WebpackDevServerOptions();
+			StylesTypes = new List<StylesType>();
 		}
 
 		/// <summary>
@@ -38,7 +40,7 @@ namespace Webpack {
 		/// <summary>
 		/// The type of the styles
 		/// </summary>
-		public StylesType StylesType { get; set; }
+		public IList<StylesType> StylesTypes { get; set; }
 
 		/// <summary>
 		/// Indicates if webpack should handle jsx files (Reactjs)

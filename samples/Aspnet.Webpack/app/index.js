@@ -1,4 +1,6 @@
-﻿import './style.scss';
+﻿import './styles/general.css';
+import './styles/style.scss';
+import './styles/lessStyle.less';
 
 import ContentGenerator from './contentGenerator';
 

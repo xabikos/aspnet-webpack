@@ -3,6 +3,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using Webpack;
 
 namespace Aspnet.Webpack {
@@ -34,7 +35,11 @@ namespace Aspnet.Webpack {
 			if (env.IsDevelopment())
 			{
 				app.UseWebpack(env, new WebpackOptions() {
-					StylesType = StylesType.Sass,
+					StylesTypes = new List<StylesType>() {
+						StylesType.Css,
+						StylesType.Sass,
+						StylesType.Less,
+					},
 					EnableHotLoading = true,
 				});
 				app.UseDeveloperExceptionPage();

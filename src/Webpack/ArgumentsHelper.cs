@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 
 namespace Webpack {
 	internal class ArgumentsHelper {
@@ -18,17 +19,15 @@ namespace Webpack {
 			if (options.HandleJsxFiles) {
 				result.Append(JsxFiles);
 			}
-			if (options.HandleStyles) {
-				switch (options.StylesType) {
-					case StylesType.Css:
-						result.Append(CssFiles);
-						break;
-					case StylesType.Sass:
-						result.Append(SassFiles);
-						break;
-					case StylesType.Less:
-						result.Append(LessFiles);
-						break;
+			if (options.HandleStyles && options.StylesTypes.Any()) {
+				if (options.StylesTypes.Contains(StylesType.Css)) {
+					result.Append(CssFiles);
+				}
+				if (options.StylesTypes.Contains(StylesType.Sass)) {
+					result.Append(SassFiles);
+				}
+				if (options.StylesTypes.Contains(StylesType.Less)) {
+					result.Append(LessFiles);
 				}
 			}
 			result.Append($"--entry ./{options.EntryPoint} ");
