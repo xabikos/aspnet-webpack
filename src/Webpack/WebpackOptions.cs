@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Webpack {
 
@@ -18,6 +15,7 @@ namespace Webpack {
 			EntryPoint = entryPoint;
 			OutputFileName = outputFileName;
 			HandleStyles = handleStyles;
+			DevServerOptions = new WebpackDevServerOptions();
 		}
 
 		/// <summary>
@@ -49,9 +47,14 @@ namespace Webpack {
 		public bool HandleJsxFiles { get; set; }
 
 		/// <summary>
-		/// Indicates if webpack's development server should be launched
+		/// Indicates if auto sync should be enabled by using webpack's development server
 		/// </summary>
-		public bool UseDevelopmentServer { get; set; }
+		public bool EnableHotLoading { get; set; }
+
+		/// <summary>
+		/// The development server configuration options
+		/// </summary>
+		public WebpackDevServerOptions DevServerOptions { get; set; }
 	}
 
 	public enum StylesType {

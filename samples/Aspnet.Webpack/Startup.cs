@@ -34,7 +34,8 @@ namespace Aspnet.Webpack {
 			if (env.IsDevelopment())
 			{
 				app.UseWebpack(env, new WebpackOptions() {
-					StylesType = StylesType.Sass
+					StylesType = StylesType.Sass,
+					EnableHotLoading = true,
 				});
 				app.UseDeveloperExceptionPage();
 			}

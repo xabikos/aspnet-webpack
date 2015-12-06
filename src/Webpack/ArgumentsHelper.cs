@@ -33,7 +33,14 @@ namespace Webpack {
 			}
 			result.Append($"--entry ./{options.EntryPoint} ");
 			result.Append($"--output-path {rootPath} ");
-			result.Append($"--output-filename {options.OutputFileName}");
+			result.Append($"--output-filename {options.OutputFileName} ");
+
+			if(options.EnableHotLoading) {
+				result.Append("--hot --inline ");
+				result.Append($"--host {options.DevServerOptions.Host} ");
+				result.Append($"--port {options.DevServerOptions.Port} ");
+				result.Append($"--output-public-path http://{options.DevServerOptions.Host}:{options.DevServerOptions.Port}/ ");
+			}
 
 			return result.ToString();
 		}

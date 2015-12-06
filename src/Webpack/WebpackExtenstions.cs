@@ -14,7 +14,7 @@ namespace Webpack {
 			EnsuereNodeModluesInstalled(options);
 			Process process = new Process();
 			process.StartInfo = new ProcessStartInfo() {
-				FileName = GetNodeExecutable(webpack),
+				FileName = options.EnableHotLoading ? GetNodeExecutable(webpacDevServer) : GetNodeExecutable(webpack),
 				Arguments = ArgumentsHelper.GetWebpackArguments(env.WebRootPath, options),
 				UseShellExecute = false
 			};
@@ -29,7 +29,7 @@ namespace Webpack {
 			if (!File.Exists(GetNodeExecutable(webpack))) {
 				throw new InvalidOperationException("webpack is not installed");
 			}
-			if (options.UseDevelopmentServer && !File.Exists(GetNodeExecutable(webpacDevServer))) {
+			if (options.EnableHotLoading && !File.Exists(GetNodeExecutable(webpacDevServer))) {
 				throw new InvalidOperationException("webpack dev server is not installed");
 			}
 		}

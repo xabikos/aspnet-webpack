@@ -34,7 +34,13 @@ namespace Webpack
 				using (var reader = new StreamReader(buffer)) {
 					var response = await reader.ReadToEndAsync();
 					if (response.Contains("</body>")) {
-						response = response.Replace("</body>", $"<script src=\"{_options.OutputFileName}\"></script></body>");
+						if (_options.EnableHotLoading) {
+							var scriptSource = $"http://{_options.DevServerOptions.Host}:{_options.DevServerOptions.Port}/{_options.OutputFileName}";
+							response = response.Replace("</body>", $"<script src=\"{scriptSource}\"></script></body>");
+						}
+						else {
+							response = response.Replace("</body>", $"<script src=\"{_options.OutputFileName}\"></script></body>");
+						}
 					}
 					using (var memStream = new MemoryStream())
 					using (var writer = new StreamWriter(memStream)) {
