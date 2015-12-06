@@ -1,9 +1,16 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Webpack Class Library",
-  "authors": [ "xabikos" ],
-  "tags": [ "" ],
-  "projectUrl": "",
+  "title": "Webpack",
+  "description": "Webpack extension methods and middleware for using module bundling in an ASP.NET 5 application",
+  "authors": [ "Charalampos Karypidis" ],
+  "tags": [ "webpack", "webpack-dev-server", "module-bundling" ],
+  "projectUrl": "https://github.com/xabikos/aspnet-webpack/tree/master/src/Webpack",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xabikos/aspnet-webpack"
+  },
+  "iconUrl": "http://webpack.github.io/assets/favicon.png",
+  "owners": [ "Charalampos Karypidis" ],
   "licenseUrl": "",
   "dependencies": {
     "Microsoft.AspNet.Hosting": "1.0.0-rc1-final"
