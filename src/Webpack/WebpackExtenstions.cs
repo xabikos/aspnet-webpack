@@ -13,7 +13,6 @@ namespace Webpack {
 		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, IHostingEnvironment env, WebpackOptions options) {
 			EnsuereNodeModluesInstalled(options);
 			Process process = new Process();
-			var temp = ArgumentsHelper.GetWebpackArguments(env.WebRootPath, options);
 			process.StartInfo = new ProcessStartInfo() {
 				FileName = GetNodeExecutable(webpack),
 				Arguments = ArgumentsHelper.GetWebpackArguments(env.WebRootPath, options),
