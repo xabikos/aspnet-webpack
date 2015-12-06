@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Hosting;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -9,18 +10,18 @@ namespace Webpack {
 		private const string webpack = "webpack";
 		private const string webpacDevServer = "webpack-dev-server";
 
-		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, WebpackOptions options) {
+		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, IHostingEnvironment env, WebpackOptions options) {
 			EnsuereNodeModluesInstalled(options);
-
-			WebpackOptions.CurrentOptions = options;
-
 			Process process = new Process();
+			var temp = ArgumentsHelper.GetWebpackArguments(env.WebRootPath, options);
 			process.StartInfo = new ProcessStartInfo() {
 				FileName = GetNodeExecutable(webpack),
-				Arguments = ArgumentsHelper.GetWebpackArguments(options),
+				Arguments = ArgumentsHelper.GetWebpackArguments(env.WebRootPath, options),
 				UseShellExecute = false
 			};
 			process.Start();
+
+			app.UseMiddleware<WebpackMiddleware>(options);
 
 			return app;
 		}

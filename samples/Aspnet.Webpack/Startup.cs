@@ -33,7 +33,7 @@ namespace Aspnet.Webpack {
 			loggerFactory.AddDebug();
 			if (env.IsDevelopment())
 			{
-				app.UseWebpack(new WebpackOptions() {
+				app.UseWebpack(env, new WebpackOptions() {
 					StylesType = StylesType.Sass
 				});
 				app.UseDeveloperExceptionPage();

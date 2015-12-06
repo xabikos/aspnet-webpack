@@ -13,7 +13,7 @@ namespace Webpack {
 		/// <summary>
 		/// Creates and returns the appropriate arguments list for the webpack based on the provided options
 		/// </summary>
-		public static string GetWebpackArguments(WebpackOptions options) {
+		public static string GetWebpackArguments(string rootPath, WebpackOptions options) {
 			var result = new StringBuilder(JsFiles);
 			if (options.HandleJsxFiles) {
 				result.Append(JsxFiles);
@@ -32,7 +32,7 @@ namespace Webpack {
 				}
 			}
 			result.Append($"--entry ./{options.EntryPoint} ");
-			result.Append($"--output-path {options.OutputPath} ");
+			result.Append($"--output-path {rootPath} ");
 			result.Append($"--output-filename {options.OutputFileName}");
 
 			return result.ToString();
