@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Webpack
-{
-	public class WebpackMiddleware
-	{
+namespace Webpack {
+	public class WebpackMiddleware {
 		RequestDelegate _next;
 		WebpackOptions _options;
 
