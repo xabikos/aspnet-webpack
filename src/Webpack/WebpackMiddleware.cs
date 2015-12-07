@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
+using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Threading.Tasks;
 
 namespace Webpack {
 	public class WebpackMiddleware {
 		RequestDelegate _next;
+		private readonly ILogger _logger;
 		WebpackOptions _options;
 
-		public WebpackMiddleware(RequestDelegate next, WebpackOptions options) {
+		public WebpackMiddleware(RequestDelegate next, ILoggerFactory loggerFactory, WebpackOptions options) {
 			_next = next;
+			_logger = loggerFactory.CreateLogger<WebpackMiddleware>();
 			_options = options;
 		}
 
@@ -28,13 +31,17 @@ namespace Webpack {
 				using (var reader = new StreamReader(buffer)) {
 					var response = await reader.ReadToEndAsync();
 					if (response.Contains("</body>")) {
+						_logger.LogInformation("A full html page is returned so the necessary script for webpack will be injected");
+						var scriptTag = string.Empty;
 						if (_options.EnableHotLoading) {
-							var scriptSource = $"http://{_options.DevServerOptions.Host}:{_options.DevServerOptions.Port}/{_options.OutputFileName}";
-							response = response.Replace("</body>", $"<script src=\"{scriptSource}\"></script></body>");
+							scriptTag = $"<script src=\"http://{_options.DevServerOptions.Host}:{_options.DevServerOptions.Port}/{_options.OutputFileName}\"></script>";
+							response = response.Replace("</body>", $"{scriptTag}</body>");
 						}
 						else {
-							response = response.Replace("</body>", $"<script src=\"{_options.OutputFileName}\"></script></body>");
+							scriptTag = $"<script src=\"{_options.OutputFileName}\"></script>";
+							response = response.Replace("</body>", $"{scriptTag}</body>");
 						}
+						_logger.LogInformation($"Inject script {scriptTag} as a last element in the body ");
 					}
 					using (var memStream = new MemoryStream())
 					using (var writer = new StreamWriter(memStream)) {

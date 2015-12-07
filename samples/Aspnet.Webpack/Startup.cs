@@ -34,7 +34,7 @@ namespace Aspnet.Webpack {
 			loggerFactory.AddDebug();
 			if (env.IsDevelopment())
 			{
-				app.UseWebpack(env, new WebpackOptions() {
+				app.UseWebpack(env, loggerFactory, new WebpackOptions() {
 					StylesTypes = new List<StylesType>() {
 						StylesType.Css,
 						StylesType.Sass,

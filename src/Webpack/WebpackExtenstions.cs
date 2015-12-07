@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -10,8 +11,15 @@ namespace Webpack {
 		private const string webpack = "webpack";
 		private const string webpacDevServer = "webpack-dev-server";
 
-		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, IHostingEnvironment env, WebpackOptions options) {
-			EnsuereNodeModluesInstalled(options);
+		public static IApplicationBuilder UseWebpack(this IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, WebpackOptions options) {
+			var toolToExecute = options.EnableHotLoading ? webpacDevServer : webpack;
+			var logger = loggerFactory.CreateLogger(toolToExecute);
+
+			logger.LogInformation($"Verifying required tools are installed");
+			EnsuereNodeModluesInstalled(options, logger);
+			logger.LogInformation($"All node modules are properly installed");
+
+			logger.LogInformation($"{toolToExecute} Execution started");
 			var arguments = "";
 			// If an external configuration file is provided then call webpack or webpack-dev-server with that configuration file
 			if (!string.IsNullOrEmpty(options.ExternalConfigurationFile)) {
@@ -20,25 +28,27 @@ namespace Webpack {
 			else {
 				arguments = ArgumentsHelper.GetWebpackArguments(env.WebRootPath, options);
 			}
+			logger.LogInformation($"{toolToExecute} is called with these arguments: {arguments}");
 			Process process = new Process();
 			process.StartInfo = new ProcessStartInfo() {
-				FileName = options.EnableHotLoading ? GetNodeExecutable(webpacDevServer) : GetNodeExecutable(webpack),
+				FileName = GetNodeExecutable(toolToExecute),
 				Arguments = arguments,
 				UseShellExecute = false
 			};
 			process.Start();
+			logger.LogInformation($"{toolToExecute} started successfully");
 
 			app.UseMiddleware<WebpackMiddleware>(options);
 
 			return app;
 		}
 
-		private static void EnsuereNodeModluesInstalled(WebpackOptions options) {
+		private static void EnsuereNodeModluesInstalled(WebpackOptions options, ILogger logger) {
 			if (!File.Exists(GetNodeExecutable(webpack))) {
-				throw new InvalidOperationException("webpack is not installed");
+				logger.LogError("webpack is not installed. Please install it by executing npm i webpack");
 			}
 			if (options.EnableHotLoading && !File.Exists(GetNodeExecutable(webpacDevServer))) {
-				throw new InvalidOperationException("webpack dev server is not installed");
+				logger.LogError("webpack-dev-server is not installed. Please install it by executing npm i webpack-dev-server");
 			}
 		}
 
