@@ -38,6 +38,6 @@
     "**.vspscc"
   ],
   "scripts": {
-    "prepublish": [ ]
+    "prerestore": ["npm run build-prod" ]
   }
 }

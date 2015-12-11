@@ -1,19 +1,24 @@
 {
   "name": "ASP.NET",
   "version": "0.0.0",
-  "scripts": {},
+  "scripts": {
+    "build-prod": "webpack --bail --progress --colors --config webpack\\webpack.production.js"
+  },
   "dependencies": {
     "babel-polyfill": "^6.3.14",
     "lorem-ipsum": "^1.0.3"
   },
   "devDependencies": {
+    "autoprefixer": "^6.1.2",
     "babel-core": "^6.3.17",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.3.13",
     "css-loader": "^0.23.0",
+    "extract-text-webpack-plugin": "^0.9.1",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
     "node-sass": "^3.4.2",
+    "postcss-loader": "^0.8.0",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.9",
