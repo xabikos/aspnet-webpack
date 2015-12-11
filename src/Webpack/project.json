@@ -14,7 +14,8 @@
   "licenseUrl": "",
   "dependencies": {
     "Microsoft.AspNet.Hosting": "1.0.0-rc1-final",
-    "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final"
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
+    "Newtonsoft.Json": "7.0.1"
   },
   "frameworks": {
     "net451": { },
