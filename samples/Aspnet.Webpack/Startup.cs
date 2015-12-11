@@ -25,6 +25,8 @@ namespace Aspnet.Webpack {
 		{
 			// Add framework services.
 			services.AddMvc();
+
+			services.AddWebpack();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +36,7 @@ namespace Aspnet.Webpack {
 			loggerFactory.AddDebug();
 			if (env.IsDevelopment())
 			{
-				app.UseWebpack(env, loggerFactory, new WebpackOptions() {
+				app.UseWebpack(new WebpackOptions() {
 					StylesTypes = new List<StylesType>() {
 						StylesType.Css,
 						StylesType.Sass,
