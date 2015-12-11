@@ -73,17 +73,28 @@ namespace Webpack {
 			if (!Directory.Exists("webpack")) {
 				Directory.CreateDirectory("webpack");
 			}
-			var loaders = new List<Loader>();
-			loaders.Add(new Loader {
+			var presets = new List<string>() {
+				"es2015"
+			};
+			if (options.HandleJsxFiles) {
+				presets.Add("react");
+			}
+			var query = new Query {
+				Presets = presets
+			};
+			var loaders = new List<WebpackLoader>();
+			loaders.Add(new WebpackLoader {
 				Test = "/\\.js/",
-				Loaders = new[] { "babel" },
-				Exclude = "/node_modules/"
+				Loader = "babel-loader",
+				Exclude = "/node_modules/",
+				Query = query
 			});
 			if (options.HandleJsxFiles) {
-				loaders.Add(new Loader {
+				loaders.Add(new WebpackLoader {
 					Test = "/\\.jsx/",
-					Loaders = new[] { "babel" },
-					Exclude = "/node_modules/"
+					Loader = "babel-loader",
+					Exclude = "/node_modules/",
+					Query = query
 				});
 			}
 			var exports = new {
