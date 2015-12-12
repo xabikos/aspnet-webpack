@@ -36,14 +36,16 @@ namespace Aspnet.Webpack {
 			loggerFactory.AddDebug();
 			if (env.IsDevelopment())
 			{
-				app.UseWebpack(new WebpackOptions() {
-					StylesTypes = new List<StylesType>() {
-						StylesType.Css,
-						StylesType.Sass,
-						StylesType.Less,
-					},
-					EnableHotLoading = true,
-				});
+				//app.UseWebpack(new WebpackOptions() {
+				//	StylesTypes = new List<StylesType>() {
+				//		StylesType.Css,
+				//		StylesType.Sass,
+				//		StylesType.Less,
+				//	},
+				//	EnableHotLoading = true,
+				//});
+				//app.UseWebpack("webpack/webpack.development.js", "bundle.js");
+				app.UseWebpack("webpack/webpack.development.js", "bundle.js", new WebpackDevServerOptions());
 				app.UseDeveloperExceptionPage();
 			}
 			else

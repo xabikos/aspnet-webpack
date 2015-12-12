@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Webpack {
 
@@ -18,13 +19,6 @@ namespace Webpack {
 			DevServerOptions = new WebpackDevServerOptions();
 			StylesTypes = new List<StylesType>();
 		}
-
-		/// <summary>
-		/// The relative path to an external configuration file
-		/// If this value provided then some of the values should be specified through this options too
-		/// In most cases should be avoided and just use the strongly type options
-		/// </summary>
-		public string ExternalConfigurationFile { get; set; }
 
 		/// <summary>
 		/// The relative path to applications root
