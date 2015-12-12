@@ -202,3 +202,4 @@ FakesAssemblies/
 _references.js
 bundle.js
 /samples/Aspnet.Webpack/webpack/webpack.dev.js
+/samples/AspnetReact.Webpack/webpack/webpack.dev.js
