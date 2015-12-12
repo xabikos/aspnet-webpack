@@ -2,8 +2,8 @@ ASP.NET WEBPACK
 =============
 
 ##Webpack 
-[Webpack](https://webpack.github.io/) is a well known module bundler that could be used cross platform and requires node environment.
-This repo contains the nuget package that enables the seamless usage of webpack into an ASP.NET 5 application.
+[Webpack](https://webpack.github.io/) is a well known module bundler that could be used cross platform and requires only a node environment in order to use it.
+This repo contains the nuget package that enables the seamless usage of webpack combined with an ASP.NET 5 application.
 
 ##Why to use it
 Webpack offers some unique features regarding static asset management and gives us tremendous flexibility. Some of the most notable features are:
@@ -15,30 +15,30 @@ Webpack offers some unique features regarding static asset management and gives 
 - Prepare the production bundles in an advanced way
 
 ###Powerful development environment and live reload cross platform with webpack-dev-server
-One of the most powerful tools that comes with webpack is the [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) that can be used for advanced features as live reload of all the assets that webpack handles.
+One of the most powerful tools that comes with webpack is the [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html) that can be used for live reload of all the assets that webpack handles.
 The development server could be used as a standalone tool and serve both html and static assets. On the other hand 
 can be combined with an existing application and serve only the static assets. In both cases with the proper configuration we can have live reload.  
-
-##Installation and Usage
-In order to install the package you need to execute in a package manager `Install-Package Webpack` console in Visual Studio
-or edit manualy the project.json file and add in dependencies section the item `"Webpack": "*"`.
-
-After successful installation there are available three extensions methods we could use based on the scenario we need.
 
 ###The two development workflows
 There are two development workflows that we can use with webpack.
 
 ####Bundle creation
 In that scenario every time we execute webpack it will create the bundles in the configured path.
-No live reload is enabled so every after change we need to execute webpack again and refresh the page.
+No live reload is enabled so after every change we need to execute webpack again and refresh the page.
 
 ####Bundle creation and live relaod
 In this case every time we launch our application the webpack dev server is started and creates all the required bundles in the memory.
-The webpack dev server establises a web socker connection with our application and every time a JavaScript or a style file changes an automatic refresh is triggered in our browser.
-In case of style changes the page is not refreshed as all the styles are embeded in style elements in the head part of the page.
+The webpack dev server establishes a web socket connection with our application and every time a JavaScript or a style file changes an automatic refresh is triggered in our browser.
+In case of style changes the page is not refreshed as all the styles are embedded in style elements in the head part of the page.
 In case of a [React.js](http://facebook.github.io/react/) application when a change in a component is happened the page does not refresh either as you can see in the corresponding sample. 
 
 In both scenarios above we don't have to add manually the script tags in the layout file or somewhere else as the library itself will do that for us through the webpack middleware.
+
+##Installation and Usage
+In order to install the package you need to execute in a package manager console in Visual Studio `Install-Package Webpack`
+or edit manually the project.json file and add in dependencies section the item `"Webpack": "*"`.
+
+After successful installation there are available three extensions methods we could use based on the scenario we need.
 
 ###Register services
 First step is to add the `services.AddWebpack()` section in the ConfigureServices method in order for the library
@@ -80,9 +80,9 @@ app.UseWebpack(new WebpackOptions("reactApp/index.js", "appBundle.js", true) {
 	DevServerOptions = new WebpackDevServerOptions("localhost", 5000)
 });
 ```
-In this case we declare that the entry point of our application is the index.js that lives inside the folder reactApp
-and the output file will be the appBundle.js and will be placed inside the web root folder that is returned from the  IHostingEnvironment.WebRootPath property.
-In case we want to place this file inside the a different location e.g. wwwroot/js/appBundle.js then we need to provide the full relative path.
+In this case we declare that the entry point of our application is the `index.js` that lives inside the folder `reactApp`
+and the output file will be the `appBundle.js` and will be placed inside the web root folder that is returned from the  `IHostingEnvironment.WebRootPath` property.
+In case we want to place this file inside the a different location e.g. `wwwroot/js/appBundle.js` then we need to provide the full relative path.
 The entry point file is a relative path to the project's folder. At the end the webpack dev server will started in the provided address and port.
 
 ###Usage with external configuration file
@@ -109,11 +109,12 @@ In the Aspnet.Webpack sample in the webpack folder there is an example of a prod
    Even when we use webpack without an external configuration file the library creates a folder witn name webpack and puts there a file with name webpack.dev.js.
    This is happening as there is no way to exclude some folders from babel-loader only by using the cli. This folder can be ignored and not changed manually.
 - Multiple entry points
+   
    The predefined confguration does not support multiple entry points at the moment.
 
 ##Notes
-I have tried this library in both windows 10 and OSX El Capitan. It would be great if someone could give it a try in a Linux environment.
+The library has been tested in both windows 10 and OSX El Capitan. It would be great if someone could give it a try in a Linux environment.
 
 ##Your feedback
-This library came out after I was involved in a project that uses asp.net 5 and Reactjs in the same project. Your feedback is very important in order to cover more scenarios.
+This library came out after I was involved in a project that uses asp.net 5 and Reactjs in the same application. Your feedback is very important in order to cover more scenarios.
 Please open issues on possible bugs or other ideas of how it could be improved.
