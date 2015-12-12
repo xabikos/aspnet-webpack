@@ -4,7 +4,7 @@
   "description": "Webpack extension methods and middleware for using module bundling in an ASP.NET 5 application",
   "authors": [ "Charalampos Karypidis" ],
   "tags": [ "webpack", "webpack-dev-server", "module-bundling" ],
-  "projectUrl": "https://github.com/xabikos/aspnet-webpack/tree/master/src/Webpack",
+  "projectUrl": "https://github.com/xabikos/aspnet-webpack",
   "repository": {
     "type": "git",
     "url": "https://github.com/xabikos/aspnet-webpack"
