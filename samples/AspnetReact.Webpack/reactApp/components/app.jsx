@@ -6,7 +6,7 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				this is the first result cha
+				this is the first result
 			</div>
 		);
 	}
