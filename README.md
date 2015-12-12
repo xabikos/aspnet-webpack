@@ -45,11 +45,10 @@ First step is to add the `services.AddWebpack()` section in the ConfigureService
 to register the required dependencies.
 
 ```cs
-  public void ConfigureServices(IServiceCollection services) {
-    // Add framework services.
-    services.AddMvc();
+public void ConfigureServices(IServiceCollection services) {
+	services.AddMvc();
 	services.AddWebpack();
-  }
+}
 ```
 
 ###Usage without external configuration file
@@ -59,11 +58,11 @@ An example configuration could be like:
 
 ```cs
 app.UseWebpack(new WebpackOptions() {
-  StylesTypes = new List<StylesType>() {
-    StylesType.Css,
-    StylesType.Sass,
-    StylesType.Less,
-  }
+	StylesTypes = new List<StylesType>() {
+		StylesType.Css,
+		StylesType.Sass,
+		StylesType.Less,
+	}
 });
 ```
 In this example we just use the default configuration values and no live reload will happen.
@@ -72,16 +71,49 @@ The available options are pretty self explenatory and it shouldn't be any proble
 A more complete configuration with live reload follows:
  ```cs
 app.UseWebpack(new WebpackOptions("reactApp/index.js", "appBundle.js", true) {
-  StylesTypes = new List<StylesType>() {
-    StylesType.Css,
-    StylesType.Sass,
-    StylesType.Less,
-  },
-  EnableHotLoading = true,
-  DevServerOptions = new WebpackDevServerOptions("localhost", 5000)
+	StylesTypes = new List<StylesType>() {
+		StylesType.Css,
+		StylesType.Sass,
+		StylesType.Less,
+	},
+	EnableHotLoading = true,
+	DevServerOptions = new WebpackDevServerOptions("localhost", 5000)
 });
 ```
 In this case we declare that the entry point of our application is the index.js that lives inside the folder reactApp
 and the output file will be the appBundle.js and will be placed inside the web root folder that is returned from the  IHostingEnvironment.WebRootPath property.
 In case we want to place this file inside the a different location e.g. wwwroot/js/appBundle.js then we need to provide the full relative path.
 The entry point file is a relative path to the project's folder. At the end the webpack dev server will started in the provided address and port.
+
+###Usage with external configuration file
+The available options above are quite limited compared to what is possible through an external webpack configuration file.
+In that case there are two other overloads of the UseWebpack method we can use according to the workflow. 
+If the live reload is necessary then all of the parameters should be provided as in the following example:
+
+ ```cs
+app.UseWebpack("webpack/webpack.development.js", "bundle.js", new WebpackDevServerOptions("localhost", 3000));
+});
+```
+The first parameter is the external configuration file the second is the name of the output file and the last one is the parameters for the development server.
+In this case we have a small duplication of the configuration in the external config file, webpack.development.js in our case and the provided parameters.
+The output file should be exactly the same as the one in output section filename is configuration file and the same applies for the development server options.
+This is required in order the webpack middleware to inject the correct script in the html.
+
+##Production bundles
+There is no automation for production bundles and it must be handled according to each aplication's needs.
+In the Aspnet.Webpack sample in the webpack folder there is an example of a production configuration for the project.
+
+##Known issues
+- Webpack folder
+   
+   Even when we use webpack without an external configuration file the library creates a folder witn name webpack and puts there a file with name webpack.dev.js.
+   This is happening as there is no way to exclude some folders from babel-loader only by using the cli. This folder can be ignored and not changed manually.
+- Multiple entry points
+   The predefined confguration does not support multiple entry points at the moment.
+
+##Notes
+I have tried this library in both windows 10 and OSX El Capitan. It would be great if someone could give it a try in a Linux environment.
+
+##Your feedback
+This library came out after I was involved in a project that uses asp.net 5 and Reactjs in the same project. Your feedback is very important in order to cover more scenarios.
+Please open issues on possible bugs or other ideas of how it could be improved.
