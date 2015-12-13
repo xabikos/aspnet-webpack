@@ -104,10 +104,15 @@ There is no automation for production bundles and it must be handled according t
 In the Aspnet.Webpack sample in the webpack folder there is an example of a production configuration for the project.
 
 ##Known issues
+- Not compatible with IIS Express
+
+   In Windows environment the IIS Express is not supported yet. You need to use the Kestrel web server, web command in most projects.
+   
 - Webpack folder
    
    Even when we use webpack without an external configuration file the library creates a folder witn name webpack and puts there a file with name webpack.dev.js.
    This is happening as there is no way to exclude some folders from babel-loader only by using the cli. This folder can be ignored and not changed manually.
+
 - Multiple entry points
    
    The predefined confguration does not support multiple entry points at the moment.
