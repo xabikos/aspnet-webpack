@@ -31,6 +31,8 @@ namespace AspnetReact.Webpack {
 			loggerFactory.AddDebug();
 
 			if (env.IsDevelopment()) {
+				// This is an example of a configuration without an external file
+				// In case there is a need to use an external file then remove this section and uncomment the following line
 				app.UseWebpack(new WebpackOptions("reactApp/index.js") {
 					HandleStyles = true,
 					StylesTypes = new List<StylesType> {
@@ -40,6 +42,7 @@ namespace AspnetReact.Webpack {
 					EnableHotLoading = true,
 					DevServerOptions = new WebpackDevServerOptions()
 				});
+				//app.UseWebpack("webpack_external/webpack.config.js", "bundle.js", new WebpackDevServerOptions());
 				app.UseDeveloperExceptionPage();
 			}
 			else {

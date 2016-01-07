@@ -3,6 +3,8 @@
   "compilationOptions": {
     "emitEntryPoint": true
   },
+  "webroot": "wwwroot",
+
   "tooling": {
     "defaultNamespace": "AspnetReact.Webpack"
   },
@@ -27,13 +29,13 @@
   },
 
   "frameworks": {
-    "dnx451": {},
-    "dnxcore50": {}
+    "dnx451": { },
+    "dnxcore50": { }
   },
 
   "exclude": [
     "wwwroot",
-    "node_modules",
+    "node_modules"
   ],
   "publishExclude": [
     "node_modules",
