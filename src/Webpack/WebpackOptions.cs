@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Webpack {
 
@@ -18,6 +17,7 @@ namespace Webpack {
 			HandleStyles = handleStyles;
 			DevServerOptions = new WebpackDevServerOptions();
 			StylesTypes = new List<StylesType>();
+			StaticFileTypes = new List<StaticFileType>();
 		}
 
 		/// <summary>
@@ -49,6 +49,23 @@ namespace Webpack {
 		public bool HandleJsxFiles { get; set; }
 
 		/// <summary>
+		/// Indicates if webpack should handle the static file types through URL and file loader
+		/// </summary>
+		public bool HandleStaticFiles { get; set; }
+
+		/// <summary>
+		/// Indicates the limit of the file size in bytes to use with URL loader
+		/// When a file exceeds that limit it will be handled by file loader
+		/// https://github.com/webpack/url-loader
+		/// </summary>
+		public int StaticFileTypesLimit { get; set; }
+
+		/// <summary>
+		/// The type of the static files to handle
+		/// </summary>
+		public IList<StaticFileType> StaticFileTypes { get; set; }
+
+		/// <summary>
 		/// Indicates if auto sync should be enabled by using webpack's development server
 		/// </summary>
 		public bool EnableHotLoading { get; set; }
@@ -63,5 +80,15 @@ namespace Webpack {
 		Css,
 		Less,
 		Sass
+	}
+
+	public enum StaticFileType {
+		Png,
+		Jpg,
+		Svg,
+		Woff,
+		Woff2,
+		Eot,
+		Ttf
 	}
 }

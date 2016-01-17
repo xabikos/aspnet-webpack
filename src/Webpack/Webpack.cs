@@ -11,7 +11,7 @@ namespace Webpack {
 	internal class Webpack : IWebpack {
 
 		private const string webpack = "webpack";
-		private const string webpacDevServer = "webpack-dev-server";
+		private const string webpackDevServer = "webpack-dev-server";
 
 		private readonly ILoggerFactory _loggerFactory;
 		private readonly string _webRootPath;
@@ -22,7 +22,7 @@ namespace Webpack {
 		}
 
 		public WebPackMiddlewareOptions Execute(WebpackOptions options) {
-			var toolToExecute = options.EnableHotLoading ? webpacDevServer : webpack;
+			var toolToExecute = options.EnableHotLoading ? webpackDevServer : webpack;
 			var logger = _loggerFactory.CreateLogger(toolToExecute);
 
 			logger.LogInformation($"Verifying required tools are installed");
@@ -53,7 +53,7 @@ namespace Webpack {
 
 		public WebPackMiddlewareOptions Execute(string configFile, string outputFileName, WebpackDevServerOptions devServerOptions) {
 			var enableHotLoading = devServerOptions != null;
-			var toolToExecute = enableHotLoading ? webpacDevServer : webpack;
+			var toolToExecute = enableHotLoading ? webpackDevServer : webpack;
 			var logger = _loggerFactory.CreateLogger(toolToExecute);
 
 			logger.LogInformation($"Verifying required tools are installed");
@@ -89,7 +89,7 @@ namespace Webpack {
 			if (!File.Exists(GetNodeExecutable(webpack))) {
 				logger.LogError("webpack is not installed. Please install it by executing npm i webpack");
 			}
-			if (enableHotLoading && !File.Exists(GetNodeExecutable(webpacDevServer))) {
+			if (enableHotLoading && !File.Exists(GetNodeExecutable(webpackDevServer))) {
 				logger.LogError("webpack-dev-server is not installed. Please install it by executing npm i webpack-dev-server");
 			}
 		}

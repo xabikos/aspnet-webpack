@@ -8,7 +8,7 @@ namespace Webpack {
 		private const string CssFiles = "--module-bind css=style!css ";
 		private const string LessFiles = "--module-bind less=style!css!less ";
 		private const string SassFiles = "--module-bind scss=style!css!sass ";
-
+		private const string StaticFile = "--module-bind {0}=url?limit={1} ";
 
 		/// <summary>
 		/// Creates and returns the appropriate arguments list for the webpack based on the provided options
@@ -25,6 +25,11 @@ namespace Webpack {
 				if (options.StylesTypes.Contains(StylesType.Less)) {
 					result.Append(LessFiles);
 				}
+			}
+			if(options.HandleStaticFiles) {
+				options.StaticFileTypes.ToList().ForEach(staticFileType => {
+					result.Append(string.Format(StaticFile, staticFileType.ToString().ToLowerInvariant(), options.StaticFileTypesLimit));
+				});
 			}
 			result.Append($"--entry ./{options.EntryPoint} ");
 			result.Append($"--output-path {rootPath} ");
