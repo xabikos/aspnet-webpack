@@ -39,8 +39,13 @@ namespace AspnetReact.Webpack {
 						StylesType.Sass
 					},
 					HandleJsxFiles = true,
-					EnableHotLoading = true,
-					DevServerOptions = new WebpackDevServerOptions()
+					HandleStaticFiles = true,
+					StaticFileTypesLimit = 10000,
+					StaticFileTypes = new List<StaticFileType> {
+						StaticFileType.Png,
+						StaticFileType.Jpg
+					},
+					EnableHotLoading = true
 				});
 				//app.UseWebpack("webpack_external/webpack.config.js", "bundle.js", new WebpackDevServerOptions());
 				app.UseDeveloperExceptionPage();
