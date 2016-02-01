@@ -117,12 +117,14 @@ namespace Webpack {
 				Presets = presets
 			};
 			var loaders = new List<WebpackLoader>();
-			loaders.Add(new WebpackLoader {
-				Test = "/\\.js/",
-				Loader = "babel-loader",
-				Exclude = "/node_modules/",
-				Query = query
-			});
+			if (options.EnableES2015) {
+				loaders.Add(new WebpackLoader {
+					Test = "/\\.js/",
+					Loader = "babel-loader",
+					Exclude = "/node_modules/",
+					Query = query
+				});
+			}
 			if (options.HandleJsxFiles) {
 				loaders.Add(new WebpackLoader {
 					Test = "/\\.jsx/",
