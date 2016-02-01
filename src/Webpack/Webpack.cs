@@ -138,15 +138,18 @@ namespace Webpack {
 					loaders
 				}
 			};
-			var jsonResult = JsonConvert.SerializeObject(exports,
-				new JsonSerializerSettings {
-					Formatting = Formatting.Indented,
-					ContractResolver = new CamelCasePropertyNamesContractResolver()
-				});
-			var fileContent = $"module.exports = {jsonResult}";
-			using (var fs = File.Create(Path.Combine("webpack", "webpack.dev.js"))) {
-				using (var streamWriter = new StreamWriter(fs)) {
-					streamWriter.WriteLine(fileContent);
+			// Create the external configuration file only if we need to use babel-loader
+			if (loaders.Count > 0) {
+				var jsonResult = JsonConvert.SerializeObject(exports,
+					new JsonSerializerSettings {
+						Formatting = Formatting.Indented,
+						ContractResolver = new CamelCasePropertyNamesContractResolver()
+					});
+				var fileContent = $"module.exports = {jsonResult}";
+				using (var fs = File.Create(Path.Combine("webpack", "webpack.dev.js"))) {
+					using (var streamWriter = new StreamWriter(fs)) {
+						streamWriter.WriteLine(fileContent);
+					}
 				}
 			}
 		}
