@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 
@@ -32,23 +33,28 @@ namespace Webpack {
 			CreateWebpackConfigurationFile(options);
 
 			logger.LogInformation($"{toolToExecute} Execution started");
-			var arguments = ArgumentsHelper.GetWebpackArguments(_webRootPath, options);
-			logger.LogInformation($"{toolToExecute} is called with these arguments: {arguments}");
-			Process process = new Process();
-			process.StartInfo = new ProcessStartInfo() {
-				FileName = GetNodeExecutable(toolToExecute),
-				Arguments = arguments,
-				UseShellExecute = false
-			};
-			process.Start();
-			logger.LogInformation($"{toolToExecute} started successfully");
+			try {
+				var arguments = ArgumentsHelper.GetWebpackArguments(_webRootPath, options);
+				logger.LogInformation($"{toolToExecute} is called with these arguments: {arguments}");
+				Process process = new Process();
+				process.StartInfo = new ProcessStartInfo() {
+					FileName = GetNodeExecutable(toolToExecute),
+					Arguments = arguments,
+					UseShellExecute = false
+				};
+				process.Start();
+				logger.LogInformation($"{toolToExecute} started successfully");
 
-			return new WebPackMiddlewareOptions {
-				EnableHotLoading = options.EnableHotLoading,
-				OutputFileName = options.OutputFileName,
-				Host = options.DevServerOptions.Host,
-				Port = options.DevServerOptions.Port
-			};
+				return new WebPackMiddlewareOptions {
+					EnableHotLoading = options.EnableHotLoading,
+					OutputFileName = options.OutputFileName,
+					Host = options.DevServerOptions.Host,
+					Port = options.DevServerOptions.Port
+				};
+			}
+			catch (Win32Exception) {
+				throw new InvalidProgramException("IIS Express is not supported by Asp.net Webpack. Please use Kestrel instead");
+			}
 		}
 
 		public WebPackMiddlewareOptions Execute(string configFile, string outputFileName, WebpackDevServerOptions devServerOptions) {
@@ -138,15 +144,18 @@ namespace Webpack {
 					loaders
 				}
 			};
-			var jsonResult = JsonConvert.SerializeObject(exports,
-				new JsonSerializerSettings {
-					Formatting = Formatting.Indented,
-					ContractResolver = new CamelCasePropertyNamesContractResolver()
-				});
-			var fileContent = $"module.exports = {jsonResult}";
-			using (var fs = File.Create(Path.Combine("webpack", "webpack.dev.js"))) {
-				using (var streamWriter = new StreamWriter(fs)) {
-					streamWriter.WriteLine(fileContent);
+			// Create the external configuration file only if we need to use babel-loader
+			if (loaders.Count > 0) {
+				var jsonResult = JsonConvert.SerializeObject(exports,
+					new JsonSerializerSettings {
+						Formatting = Formatting.Indented,
+						ContractResolver = new CamelCasePropertyNamesContractResolver()
+					});
+				var fileContent = $"module.exports = {jsonResult}";
+				using (var fs = File.Create(Path.Combine("webpack", "webpack.dev.js"))) {
+					using (var streamWriter = new StreamWriter(fs)) {
+						streamWriter.WriteLine(fileContent);
+					}
 				}
 			}
 		}
