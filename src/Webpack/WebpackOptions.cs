@@ -14,6 +14,7 @@ namespace Webpack {
 			bool handleStyles = true) {
 			EntryPoint = entryPoint;
 			OutputFileName = outputFileName;
+			EnableES2015 = true;
 			HandleStyles = handleStyles;
 			DevServerOptions = new WebpackDevServerOptions();
 			StylesTypes = new List<StylesType>();
@@ -31,6 +32,12 @@ namespace Webpack {
 		/// If not specified is "bundle.js"
 		/// </summary>
 		public string OutputFileName { get; set; }
+
+		/// <summary>
+		/// Flag that enables ES2015 features (requires babel-loader to be installed)
+		/// It's enabled <c>true</c> by default
+		/// </summary>
+		public bool EnableES2015 { get; set; }
 
 		/// <summary>
 		/// Indicates if webpack should handle the styles
