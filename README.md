@@ -26,7 +26,7 @@ There are two development workflows that we can use with webpack.
 In that scenario every time we execute webpack it will create the bundles in the configured path.
 No live reload is enabled so after every change we need to execute webpack again and refresh the page.
 
-####Bundle creation and live relaod
+####Bundle creation and live reload
 In this case every time we launch our application the webpack dev server is started and creates all the required bundles in the memory.
 The webpack dev server establishes a web socket connection with our application and every time a JavaScript or a style file changes an automatic refresh is triggered in our browser.
 In case of style changes the page is not refreshed as all the styles are embedded in style elements in the head part of the page.
