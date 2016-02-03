@@ -30,11 +30,11 @@ namespace Webpack {
 			EnsuereNodeModluesInstalled(options.EnableHotLoading, logger);
 			logger.LogInformation($"All node modules are properly installed");
 
-			CreateWebpackConfigurationFile(options);
+			var includeDefaultConfigFile = CreateWebpackConfigurationFile(options);
 
 			logger.LogInformation($"{toolToExecute} Execution started");
 			try {
-				var arguments = ArgumentsHelper.GetWebpackArguments(_webRootPath, options);
+				var arguments = ArgumentsHelper.GetWebpackArguments(_webRootPath, options, includeDefaultConfigFile);
 				logger.LogInformation($"{toolToExecute} is called with these arguments: {arguments}");
 				Process process = new Process();
 				process.StartInfo = new ProcessStartInfo() {
@@ -109,10 +109,7 @@ namespace Webpack {
 			return executable;
 		}
 
-		private static void CreateWebpackConfigurationFile(WebpackOptions options) {
-			if (!Directory.Exists("webpack")) {
-				Directory.CreateDirectory("webpack");
-			}
+		private static bool CreateWebpackConfigurationFile(WebpackOptions options) {
 			var presets = new List<string>() {
 				"es2015"
 			};
@@ -146,6 +143,9 @@ namespace Webpack {
 			};
 			// Create the external configuration file only if we need to use babel-loader
 			if (loaders.Count > 0) {
+				if (!Directory.Exists("webpack")) {
+					Directory.CreateDirectory("webpack");
+				}
 				var jsonResult = JsonConvert.SerializeObject(exports,
 					new JsonSerializerSettings {
 						Formatting = Formatting.Indented,
@@ -157,7 +157,9 @@ namespace Webpack {
 						streamWriter.WriteLine(fileContent);
 					}
 				}
+				return true;
 			}
+			return false;
 		}
 
 	}
