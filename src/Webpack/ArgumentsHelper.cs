@@ -13,8 +13,11 @@ namespace Webpack {
 		/// <summary>
 		/// Creates and returns the appropriate arguments list for the webpack based on the provided options
 		/// </summary>
-		public static string GetWebpackArguments(string rootPath, WebpackOptions options) {
-			var result = new StringBuilder(DefaultDevFile);
+		public static string GetWebpackArguments(string rootPath, WebpackOptions options, bool includeDefaultConfigFile) {
+			var result = new StringBuilder();
+			if(includeDefaultConfigFile) {
+				result.Append(DefaultDevFile);
+			}
 			if (options.HandleStyles && options.StylesTypes.Any()) {
 				if (options.StylesTypes.Contains(StylesType.Css)) {
 					result.Append(CssFiles);

@@ -120,6 +120,9 @@ In the Aspnet.Webpack sample in the webpack folder there is an example of a prod
 ##Notes
 The library has been tested in both windows 10 and OSX El Capitan. It would be great if someone could give it a try in a Linux environment.
 
+##Related blog post
+I have also published a [blog post](http://xabikos.com/javascript%20module%20bundler/javascript%20dependencies%20management/css%20module%20bundler/css%20dependencies%20management/2015/12/15/asp.net-5-and-webpack-part-1.html) talking about this package and webpack
+
 ##Your feedback
 This library came out after I was involved in a project that uses asp.net 5 and Reactjs in the same application. Your feedback is very important in order to cover more scenarios.
 Please open issues on possible bugs or other ideas of how it could be improved.
