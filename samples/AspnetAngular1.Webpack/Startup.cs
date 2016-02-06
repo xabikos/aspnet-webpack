@@ -42,11 +42,7 @@ namespace AspnetAngular1.Webpack
             if (env.IsDevelopment())
             {
 				app.UseWebpack(new WebpackOptions() {
-					StylesTypes = new List<StylesType>() {
-						StylesType.Css,
-						StylesType.Sass,
-						StylesType.Less,
-					},
+					EnableES2015 = false,
 					EnableHotLoading = true,
 				});
 				app.UseDeveloperExceptionPage();

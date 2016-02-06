@@ -2,6 +2,7 @@
   "name": "ASP.NET",
   "version": "0.0.0",
   "devDependencies": {
+    "raw-loader": "^0.5.1",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1"
   },
