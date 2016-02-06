@@ -56,6 +56,12 @@ namespace Webpack {
 		public bool HandleJsxFiles { get; set; }
 
 		/// <summary>
+		/// Indicates if webpack should handle the templates for an Angular application
+		/// It should be true to use <code>require('template.html')</code> inside directives
+		/// </summary>
+		public bool HandleAngularTemplates { get; set; }
+
+		/// <summary>
 		/// Indicates if webpack should handle the static file types through URL and file loader
 		/// </summary>
 		public bool HandleStaticFiles { get; set; }
