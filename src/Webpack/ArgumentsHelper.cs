@@ -8,6 +8,7 @@ namespace Webpack {
 		private const string CssFiles = "--module-bind css=style!css ";
 		private const string LessFiles = "--module-bind less=style!css!less ";
 		private const string SassFiles = "--module-bind scss=style!css!sass ";
+		private const string HandleAngularTemplateFiles = "--module-bind html=raw ";
 		private const string StaticFile = "--module-bind {0}=url?limit={1} ";
 
 		/// <summary>
@@ -28,6 +29,9 @@ namespace Webpack {
 				if (options.StylesTypes.Contains(StylesType.Less)) {
 					result.Append(LessFiles);
 				}
+			}
+			if(options.HandleAngularTemplates) {
+				result.Append(HandleAngularTemplateFiles);
 			}
 			if(options.HandleStaticFiles) {
 				options.StaticFileTypes.ToList().ForEach(staticFileType => {
