@@ -44,6 +44,7 @@ namespace AspnetAngular1.Webpack
 				app.UseWebpack(new WebpackOptions() {
 					EnableES2015 = false,
 					EnableHotLoading = true,
+					HandleAngularTemplates = true,
 				});
 				app.UseDeveloperExceptionPage();
             }
