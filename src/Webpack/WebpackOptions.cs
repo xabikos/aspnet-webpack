@@ -14,6 +14,7 @@ namespace Webpack {
 			bool handleStyles = true) {
 			EntryPoint = entryPoint;
 			OutputFileName = outputFileName;
+			DevToolType = DevToolType.SourceMap;
 			EnableES2015 = true;
 			HandleStyles = handleStyles;
 			DevServerOptions = new WebpackDevServerOptions();
@@ -32,6 +33,12 @@ namespace Webpack {
 		/// If not specified is "bundle.js"
 		/// </summary>
 		public string OutputFileName { get; set; }
+
+		/// <summary>
+		/// Indicates the type of the development tool will be used by webpack. See http://webpack.github.io/docs/configuration.html#devtool
+		/// Default to source-map
+		/// </summary>
+		public DevToolType DevToolType { get; set; }
 
 		/// <summary>
 		/// Flag that enables ES2015 features (requires babel-loader to be installed)
@@ -93,6 +100,16 @@ namespace Webpack {
 		Css,
 		Less,
 		Sass
+	}
+
+	public enum DevToolType {
+		Eval,
+		CheapEvalSourceMap,
+		CheapSourceMap,
+		CheapModuleEvalSourceMap,
+		CheapModuleSourceMap,
+		EvalSourceMap,
+		SourceMap
 	}
 
 	public enum StaticFileType {
