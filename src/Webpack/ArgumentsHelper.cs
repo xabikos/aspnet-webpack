@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using System.Text;
+using Webpack.Extensions;
 
 namespace Webpack {
 	internal class ArgumentsHelper {
 
 		private const string DefaultDevFile = "--config webpack/webpack.dev.js ";
+		private const string DevToolType = "--devtool {0} ";
 		private const string CssFiles = "--module-bind css=style!css ";
 		private const string LessFiles = "--module-bind less=style!css!less ";
 		private const string SassFiles = "--module-bind scss=style!css!sass ";
@@ -41,6 +43,7 @@ namespace Webpack {
 			result.Append($"--entry ./{options.EntryPoint} ");
 			result.Append($"--output-path {rootPath} ");
 			result.Append($"--output-filename {options.OutputFileName} ");
+			result.Append(string.Format(DevToolType, options.DevToolType.GetWebpackValue()));
 
 			if(options.EnableHotLoading) {
 				result.Append("--hot --inline ");
