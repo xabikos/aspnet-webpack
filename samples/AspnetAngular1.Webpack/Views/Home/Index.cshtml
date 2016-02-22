@@ -1,3 +1,21 @@
 ﻿<div ng-app="app">
+  <h2>Todo (angular form based on controller)</h2>
+  <div ng-controller="TodoListController as todoList">
+    <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
+    <ul class="unstyled">
+      <li ng-repeat="todo in todoList.todos">
+        <label class="checkbox">
+          <input type="checkbox" ng-model="todo.done">
+          <span class="done-{{todo.done}}">{{todo.text}}</span>
+        </label>
+      </li>
+    </ul>
+    <form ng-submit="todoList.addTodo()">
+      <input type="text" ng-model="todoList.todoText" size="30" placeholder="add new todo here">
+      <input class="btn btn-primary" type="submit" value="add">
+    </form>
+  </div>
+
+  <h2>Custom angular component</h2>
   <hello></hello>
 </div>

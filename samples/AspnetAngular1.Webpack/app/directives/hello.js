@@ -8,7 +8,7 @@
       controller: function () {
         var vm = this;
 
-        vm.message = "Babis";
+        vm.message = "from an Angular directive";
       }
     };
   });
