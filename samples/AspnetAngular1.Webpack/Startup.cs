@@ -3,6 +3,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using Webpack;
 
 namespace AspnetAngular1.Webpack {
@@ -40,6 +41,10 @@ namespace AspnetAngular1.Webpack {
 					EnableES2015 = false,
 					EnableHotLoading = true,
 					HandleAngularTemplates = true,
+					HandleStyles = true,
+					StylesTypes = new List<StylesType> {
+						StylesType.Sass
+					}
 				});
 				app.UseDeveloperExceptionPage();
             }
