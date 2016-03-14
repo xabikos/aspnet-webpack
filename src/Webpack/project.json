@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.2.3",
+  "version": "1.2.4",
   "title": "Webpack",
   "description": "Webpack extension methods and middleware for using module bundling in an ASP.NET 5 application",
   "authors": [ "Charalampos Karypidis" ],
