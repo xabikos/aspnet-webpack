@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Webpack.Extensions;
 
@@ -40,9 +41,15 @@ namespace Webpack {
 					result.Append(string.Format(StaticFile, staticFileType.ToString().ToLowerInvariant(), options.StaticFileTypesLimit));
 				});
 			}
-			result.Append($"--entry ./{options.EntryPoint} ");
+			if (options.EntryPoints.Count != 0) {
+				((List<EntryPoint>)(options.EntryPoints)).ForEach(ep => result.Append($"--entry {ep.Name}={ep.FilePath} "));
+				result.Append($"--output-filename [name].js ");
+			}
+			else {
+				result.Append($"--entry ./{options.EntryPoint} ");
+				result.Append($"--output-filename {options.OutputFileName} ");
+			}
 			result.Append($"--output-path {rootPath} ");
-			result.Append($"--output-filename {options.OutputFileName} ");
 			result.Append(string.Format(DevToolType, options.DevToolType.GetWebpackValue()));
 
 			if(options.EnableHotLoading) {

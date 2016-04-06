@@ -1,9 +1,11 @@
-﻿namespace Webpack {
+﻿using System.Collections.Generic;
+
+namespace Webpack {
 
 	/// <summary>
 	/// The required options for the middleware in order to add the appropriate script tags
 	/// </summary>
-	public class WebPackMiddlewareOptions {
+	internal class WebPackMiddlewareOptions {
 
 		/// <summary>
 		/// Indicates if auto sync should be enabled by using webpack's development server
@@ -11,11 +13,9 @@
 		public bool EnableHotLoading { get; set; }
 
 		/// <summary>
-		/// The file name of the output bundle
-		/// In order to put the file in a different folder use a relative path e.g. js/webpackBundle.js
-		/// If not specified is "bundle.js"
+		/// The collection with output file names. For each name a separate script tag should be injected in the page
 		/// </summary>
-		public string OutputFileName { get; set; }
+		public IEnumerable<string> OutputFileNames { get; set; }
 
 		/// <summary>
 		/// The ip address of the server

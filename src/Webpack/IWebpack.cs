@@ -3,7 +3,7 @@ namespace Webpack {
 	/// <summary>
 	/// Basic contract interface for Webpack execution environment
 	/// </summary>
-	public interface IWebpack {
+	internal interface IWebpack {
 
 		/// <summary>
 		/// Executes the webpack or webpack-dev-server based on the provided <paramref name="options"/>

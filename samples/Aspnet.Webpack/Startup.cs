@@ -37,6 +37,16 @@ namespace Aspnet.Webpack {
 			if (env.IsDevelopment())
 			{
 				app.UseWebpack(new WebpackOptions() {
+					EntryPoints = new List<EntryPoint> {
+						new EntryPoint {
+							Name = "first",
+							FilePath = "./app/index.js"
+						},
+						new EntryPoint {
+							Name = "second",
+							FilePath = "./app/secondIndex.js"
+						}
+					},
 					StylesTypes = new List<StylesType>() {
 						StylesType.Css,
 						StylesType.Sass,

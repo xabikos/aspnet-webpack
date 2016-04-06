@@ -17,6 +17,7 @@ namespace Webpack {
 			DevToolType = DevToolType.SourceMap;
 			EnableES2015 = true;
 			HandleStyles = handleStyles;
+			EntryPoints = new List<EntryPoint>();
 			DevServerOptions = new WebpackDevServerOptions();
 			StylesTypes = new List<StylesType>();
 			StaticFileTypes = new List<StaticFileType>();
@@ -26,6 +27,14 @@ namespace Webpack {
 		/// The relative path to applications root
 		/// </summary>
 		public string EntryPoint { get; set; }
+
+		/// <summary>
+		/// The list for the individual entry points of the application
+		/// For each entry point an output bundle will be created with the shape of EntryPointName.js
+		/// If multiple entry points are specified all of them will be added as scripts in the page
+		/// If this collections contains at least one element then the above property EntryPoint is ignored
+		/// </summary>
+		public IList<EntryPoint> EntryPoints { get; set; }
 
 		/// <summary>
 		/// The file name of the output bundle
@@ -120,5 +129,18 @@ namespace Webpack {
 		Woff2,
 		Eot,
 		Ttf
+	}
+
+	public class EntryPoint {
+		/// <summary>
+		/// The name of the entry point
+		/// The file name will contain this name
+		/// </summary>
+		public string Name { get; set; }
+
+		/// <summary>
+		/// The relative path to the file
+		/// </summary>
+		public string FilePath { get; set; }
 	}
 }

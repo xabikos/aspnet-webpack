@@ -2,10 +2,12 @@
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Webpack {
-	public class WebpackMiddleware {
+	internal class WebpackMiddleware {
 		RequestDelegate _next;
 		private readonly ILogger _logger;
 		WebPackMiddlewareOptions _options;
@@ -32,15 +34,8 @@ namespace Webpack {
 					var response = await reader.ReadToEndAsync();
 					if (response.Contains("</body>")) {
 						_logger.LogInformation("A full html page is returned so the necessary script for webpack will be injected");
-						var scriptTag = string.Empty;
-						if (_options.EnableHotLoading) {
-							scriptTag = $"<script src=\"http://{_options.Host}:{_options.Port}/{_options.OutputFileName}\"></script>";
-							response = response.Replace("</body>", $"{scriptTag}</body>");
-						}
-						else {
-							scriptTag = $"<script src=\"{_options.OutputFileName}\"></script>";
-							response = response.Replace("</body>", $"{scriptTag}</body>");
-						}
+						var scriptTag = GetScriptTags(_options);
+						response = response.Replace("</body>", $"{scriptTag}</body>");
 						_logger.LogInformation($"Inject script {scriptTag} as a last element in the body ");
 					}
 					using (var memStream = new MemoryStream())
@@ -58,5 +53,20 @@ namespace Webpack {
 			}
 
 		}
+
+		private static string GetScriptTags(WebPackMiddlewareOptions options) {
+			var result = new StringBuilder();
+			if (options.EnableHotLoading) {
+				options.OutputFileNames.ToList().ForEach(f =>
+					result.Append($"<script src=\"http://{options.Host}:{options.Port}/{f}\"></script>")
+				);
+			} else {
+				options.OutputFileNames.ToList().ForEach(f =>
+					result.Append($"<script src=\"{f}\"></script>")
+				);
+			}
+			return result.ToString();
+		}
+
 	}
 }

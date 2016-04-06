@@ -45,9 +45,16 @@ namespace Webpack {
 				process.Start();
 				logger.LogInformation($"{toolToExecute} started successfully");
 
+				var outputFileNames = new List<string>();
+				if (options.EntryPoints.Count == 0) {
+					outputFileNames.Add(options.OutputFileName);
+				} else {
+					((List<EntryPoint>)(options.EntryPoints)).ForEach(ep => outputFileNames.Add(ep.Name + ".js"));
+				}
+
 				return new WebPackMiddlewareOptions {
 					EnableHotLoading = options.EnableHotLoading,
-					OutputFileName = options.OutputFileName,
+					OutputFileNames = outputFileNames,
 					Host = options.DevServerOptions.Host,
 					Port = options.DevServerOptions.Port
 				};
@@ -80,7 +87,7 @@ namespace Webpack {
 			logger.LogInformation($"{toolToExecute} started successfully");
 
 			var middleWareOptions = new WebPackMiddlewareOptions {
-				OutputFileName = outputFileName,
+				OutputFileNames = new List<string> {outputFileName},
 				EnableHotLoading = enableHotLoading
 			};
 			if (enableHotLoading) {
