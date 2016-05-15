@@ -48,7 +48,7 @@ namespace Webpack {
 						writer.Write(response);
 						writer.Flush();
 						memStream.Seek(0, SeekOrigin.Begin);
-						context.Response.Headers.Add("Content-Length", memStream.Length.ToString());
+						context.Response.Headers["Content-Length"] = memStream.Length.ToString();
 						await memStream.CopyToAsync(stream);
 					}
 				}
