@@ -2,15 +2,15 @@
   "name": "ASP.NET",
   "version": "0.0.0",
   "devDependencies": {
+    "css-loader": "^0.23.1",
+    "node-sass": "^3.7.0",
     "raw-loader": "^0.5.1",
-    "webpack": "^1.12.13",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "angular": "^1.5.0",
-    "css-loader": "^0.23.1",
-    "node-sass": "^3.4.2",
-    "sass-loader": "^3.1.2",
-    "style-loader": "^0.13.0"
+    "angular": "^1.5.5"
   }
 }
