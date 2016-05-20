@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Threading.Tasks;
