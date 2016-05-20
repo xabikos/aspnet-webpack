@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DFEA8E27-FC5E-4629-BCCF-6FB4A8571CBB}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,10 +11,6 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Aspnet.Webpack", "samples\Aspnet.Webpack\Aspnet.Webpack.xproj", "{1164A707-D5F1-464F-B3C7-281D644D0241}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Webpack", "src\Webpack\Webpack.xproj", "{09A17799-44B7-409E-99C8-C965722E46CA}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AspnetReact.Webpack", "samples\AspnetReact.Webpack\AspnetReact.Webpack.xproj", "{2611E158-B8F3-471A-ACEE-38E0FD99015B}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AspnetAngular1.Webpack", "samples\AspnetAngular1.Webpack\AspnetAngular1.Webpack.xproj", "{D6D017B3-4038-4E1D-8F96-D6A19233700A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,14 +26,6 @@ Global
 		{09A17799-44B7-409E-99C8-C965722E46CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09A17799-44B7-409E-99C8-C965722E46CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09A17799-44B7-409E-99C8-C965722E46CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2611E158-B8F3-471A-ACEE-38E0FD99015B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2611E158-B8F3-471A-ACEE-38E0FD99015B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2611E158-B8F3-471A-ACEE-38E0FD99015B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2611E158-B8F3-471A-ACEE-38E0FD99015B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6D017B3-4038-4E1D-8F96-D6A19233700A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6D017B3-4038-4E1D-8F96-D6A19233700A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6D017B3-4038-4E1D-8F96-D6A19233700A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6D017B3-4038-4E1D-8F96-D6A19233700A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

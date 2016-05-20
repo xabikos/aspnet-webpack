@@ -203,3 +203,4 @@ _references.js
 bundle.js
 /samples/Aspnet.Webpack/webpack/webpack.dev.js
 /samples/AspnetReact.Webpack/webpack/webpack.dev.js
+/samples/Aspnet.Webpack/web.config
