@@ -1,7 +1,7 @@
 ﻿{
   "version": "2.0.0",
   "title": "Webpack",
-  "description": "Webpack extension methods and middleware for using module bundling in an ASP.NET 5 application",
+  "description": "Webpack extension methods and middleware for using module bundling in an ASP.NET Core applications",
   "authors": [ "Charalampos Karypidis" ],
   "packOptions": {
     "tags": [ "webpack", "webpack-dev-server", "module-bundling" ],
@@ -16,7 +16,6 @@
   },
   "language": "en-US",
   "dependencies": {
-    "NETStandard.Library": "1.5.0-rc2-24027",
     "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0-*",
     "Newtonsoft.Json": "8.0.3"
   },
@@ -24,6 +23,7 @@
     "netstandard1.3": {
       "imports": [ "dnxcore50" ],
       "dependencies": {
+        "NETStandard.Library": "1.5.0-rc2-24027",
         "System.Diagnostics.Process": "4.1.0-rc2-24027"
       }
     },
