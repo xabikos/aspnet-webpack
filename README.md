@@ -3,7 +3,11 @@ ASP.NET WEBPACK
 
 ##Webpack 
 [Webpack](https://webpack.github.io/) is a well known module bundler that could be used cross platform and requires only a node environment in order to use it.
-This repo contains the nuget package that enables the seamless usage of webpack combined with an ASP.NET 5 application.
+This repo contains the nuget package that enables the seamless usage of webpack combined with ASP.NET Core applications.
+
+###Upgrade to asp.net core rc2
+The libary and the samples havs been upgraded to asp.net core rc2. In order to avoid any confusion and to indicate that this is a breaking change
+there is a new major version published 2.0.0. The last version that supports asp.net core rc1 is 1.2.5 and it will remain available but not new features will be added to this.
 
 ##Why to use it
 Webpack offers some unique features regarding static asset management and gives us tremendous flexibility. Some of the most notable features are:
@@ -23,8 +27,8 @@ can be combined with an existing application and serve only the static assets. I
 There are two development workflows that we can use with webpack.
 
 ####Bundle creation
-In that scenario every time we execute webpack it will create the bundles in the configured path.
-No live reload is enabled so after every change we need to execute webpack again and refresh the page.
+In that scenario every time we execute webpack it will create the bundles in the configured path. This is probably not very usefull during development as
+there is not live reload functionality enabled by default. So after every change we need to execute webpack again and refresh the page.
 
 ####Bundle creation and live reload
 In this case every time we launch our application the webpack dev server is started and creates all the required bundles in the memory.
@@ -66,7 +70,7 @@ app.UseWebpack(new WebpackOptions() {
 });
 ```
 In this example we just use the default configuration values and no live reload will happen.
-The available options are pretty self explenatory and it shouldn't be any problem provide the appropriate configuration.
+The available options are pretty self explanatory and it shouldn't be any problem provide the appropriate configuration.
 
 A more complete configuration with live reload follows:
  ```cs
@@ -124,5 +128,5 @@ The library has been tested in both windows 10 and OSX El Capitan. It would be g
 I have also published a [blog post](http://xabikos.com/javascript%20module%20bundler/javascript%20dependencies%20management/css%20module%20bundler/css%20dependencies%20management/2015/12/15/asp.net-5-and-webpack-part-1.html) talking about this package and webpack
 
 ##Your feedback
-This library came out after I was involved in a project that uses asp.net 5 and Reactjs in the same application. Your feedback is very important in order to cover more scenarios.
+This library came out after I was involved in a project that uses asp.net core and Reactjs in the same application. Your feedback is very important in order to cover more scenarios.
 Please open issues on possible bugs or other ideas of how it could be improved.
