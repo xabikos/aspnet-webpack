@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AspnetAngular1.Webpack.Controllers {
 	public class HomeController : Controller
