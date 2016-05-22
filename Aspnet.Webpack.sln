@@ -12,6 +12,10 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Aspnet.Webpack", "samples\A
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Webpack", "src\Webpack\Webpack.xproj", "{09A17799-44B7-409E-99C8-C965722E46CA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{12D42310-5F17-44C9-8479-03BFEC4EFD68}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AspnetReact.Webpack", "samples\AspnetReact.Webpack\AspnetReact.Webpack.xproj", "{2611E158-B8F3-471A-ACEE-38E0FD99015B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,8 +30,16 @@ Global
 		{09A17799-44B7-409E-99C8-C965722E46CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09A17799-44B7-409E-99C8-C965722E46CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09A17799-44B7-409E-99C8-C965722E46CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2611E158-B8F3-471A-ACEE-38E0FD99015B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2611E158-B8F3-471A-ACEE-38E0FD99015B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2611E158-B8F3-471A-ACEE-38E0FD99015B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2611E158-B8F3-471A-ACEE-38E0FD99015B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1164A707-D5F1-464F-B3C7-281D644D0241} = {12D42310-5F17-44C9-8479-03BFEC4EFD68}
+		{2611E158-B8F3-471A-ACEE-38E0FD99015B} = {12D42310-5F17-44C9-8479-03BFEC4EFD68}
 	EndGlobalSection
 EndGlobal
