@@ -55,7 +55,9 @@ namespace Webpack {
 			else {
 				await buffer.CopyToAsync(stream);
 			}
-
+			// TODO this is a workaround as there is a related bug in Kestrel which will is fixed and will be published at a later point
+			// https://github.com/aspnet/KestrelHttpServer/issues/940
+			context.Response.Body = stream;
 		}
 	}
 }
