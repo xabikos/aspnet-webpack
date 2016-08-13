@@ -11,7 +11,8 @@ namespace AspnetReact.Webpack
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseStartup<Startup>()
+				.UseIISIntegration()
+				.UseStartup<Startup>()
                 .Build();
 
             host.Run();
