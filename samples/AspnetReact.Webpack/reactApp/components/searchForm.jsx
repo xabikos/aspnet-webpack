@@ -1,22 +1,35 @@
 import React, {Component, PropTypes} from 'react';
-import {Input, Button} from 'react-bootstrap';
+import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
 import {AutoAffix} from 'react-overlays';
 
 class SearchForm extends Component {
   constructor(props) {
     super(props);
 
-    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      repository: '',
+      language: '',
+    };
+    this.handleRepositoryChange = this.handleRepositoryChange.bind(this);
+    this.handleLanguageChange = this.handleLanguageChange.bind(this);
+    this.handleSubmitClick = this.handleSubmitClick.bind(this);
   }
 
-  handleClick() {
-    const repositoryValue = this.refs.repository.getValue();
-    const languageValue = this.refs.language.getValue();
-    if (repositoryValue) {
-      if (languageValue !== 'undefined') {
-        this.props.search(repositoryValue, languageValue);
+  handleRepositoryChange(e) {
+    this.setState({repository: e.target.value});
+  }
+
+  handleLanguageChange(e) {
+    this.setState({language: e.target.value});
+  }
+
+  handleSubmitClick() {
+    const {repository, language} = this.state;
+    if (repository) {
+      if (language) {
+        this.props.search(repository, language);
       } else {
-        this.props.search(repositoryValue);
+        this.props.search(repository);
       }
     }
   }
@@ -25,21 +38,30 @@ class SearchForm extends Component {
     return (
       <AutoAffix viewportOffsetTop={55}>
         <div>
-          <Input
-            type="text"
-            ref="repository"
-            label="Enter a keyword to search Github"
-            placeholder="search term"
-          />
-          <Input type="select" ref="language" label="Optianally select a language">
-            <option value="undefined">Select a language</option>
-            <option value="javascript">JavaScript</option>
-            <option value="csharp">C#</option>
-            <option value="python">Python</option>
-            <option value="ruby">Ruby</option>
-            <option value="java">Java</option>
-          </Input>
-          <Button bsStyle="primary" onClick={this.handleClick}>Search</Button>
+          <FormGroup controlId="repositorySearch">
+            <ControlLabel>Enter a keyword to search Github</ControlLabel>
+            <FormControl
+              type="text"
+              value={this.state.repository}
+              onChange={this.handleRepositoryChange}
+              placeholder="search term"
+            />
+          </FormGroup>
+          <FormGroup controlId="formControlsSelect">
+            <ControlLabel>Optianally select a programming language</ControlLabel>
+            <FormControl
+              componentClass="select"
+              onChange={this.handleLanguageChange}
+              placeholder="Select a programming language">
+              <option value="undefined">Select a language</option>
+              <option value="javascript">JavaScript</option>
+              <option value="csharp">C#</option>
+              <option value="python">Python</option>
+              <option value="ruby">Ruby</option>
+              <option value="java">Java</option>
+            </FormControl>
+          </FormGroup>
+          <Button bsStyle="primary" onClick={this.handleSubmitClick}>Search</Button>
         </div>
       </AutoAffix>
     );

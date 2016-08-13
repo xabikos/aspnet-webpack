@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import '../styles/site.scss';
 
-import Counter from './counter.jsx';
 import MainController from './mainController.jsx';
 import githubLogo from '../images/github-logo.png';
 import largeImage from '../images/react-large.png';

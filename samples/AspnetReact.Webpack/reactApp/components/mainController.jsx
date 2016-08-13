@@ -15,7 +15,7 @@ class MainController extends Component {
 
   handleSearch(search, language) {
     ApiService.searchRepositories(search, language).then(data => {
-      this.setState({repositories: data.items});
+      this.setState({repositories: data.items, activeRepository: {}});
     });
   }
 
