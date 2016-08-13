@@ -15,9 +15,11 @@ namespace Webpack {
 		private const string webpackDevServer = "webpack-dev-server";
 
 		private readonly ILoggerFactory _loggerFactory;
+		private readonly string _contentRootPath;
 		private readonly string _webRootPath;
 
 		public Webpack(IHostingEnvironment env, ILoggerFactory loggerFactory) {
+			_contentRootPath = env.ContentRootPath;
 			_webRootPath = env.WebRootPath;
 			_loggerFactory = loggerFactory;
 		}
@@ -38,7 +40,7 @@ namespace Webpack {
 				logger.LogInformation($"{toolToExecute} is called with these arguments: {arguments}");
 				Process process = new Process();
 				process.StartInfo = new ProcessStartInfo() {
-					FileName = GetNodeExecutable(toolToExecute),
+					FileName = GetWebpackToolToExeceute(toolToExecute),
 					Arguments = arguments,
 					UseShellExecute = false
 				};
@@ -72,7 +74,7 @@ namespace Webpack {
 			logger.LogInformation($"{toolToExecute} is called with these arguments: {arguments}");
 			Process process = new Process();
 			process.StartInfo = new ProcessStartInfo() {
-				FileName = GetNodeExecutable(toolToExecute),
+				FileName = GetWebpackToolToExeceute(toolToExecute),
 				Arguments = arguments,
 				UseShellExecute = false
 			};
@@ -91,17 +93,21 @@ namespace Webpack {
 			return middleWareOptions;
 		}
 
-		private static void EnsuereNodeModluesInstalled(bool enableHotLoading, ILogger logger) {
-			if (!File.Exists(GetNodeExecutable(webpack))) {
+		private void EnsuereNodeModluesInstalled(bool enableHotLoading, ILogger logger) {
+			if (!File.Exists(GetWebpackToolToExeceute(webpack))) {
 				logger.LogError("webpack is not installed. Please install it by executing npm i webpack");
 			}
-			if (enableHotLoading && !File.Exists(GetNodeExecutable(webpackDevServer))) {
+			if (enableHotLoading && !File.Exists(GetWebpackToolToExeceute(webpackDevServer))) {
 				logger.LogError("webpack-dev-server is not installed. Please install it by executing npm i webpack-dev-server");
 			}
 		}
 
-		private static string GetNodeExecutable(string module) {
-			var executable = Path.Combine(Directory.GetCurrentDirectory(), "node_modules", ".bin", module);
+		/// <summary>
+		/// Helper method that based on the supplied <paramref name="tool"/> returns a full path to the
+		/// appropriate tool (webpack or webpack-dev-server) taking into account the current OS
+		/// </summary>
+		private string GetWebpackToolToExeceute(string tool) {
+			var executable = Path.Combine(_contentRootPath, "node_modules", ".bin", tool);
 			var osEnVariable = Environment.GetEnvironmentVariable("OS");
 			if (!string.IsNullOrEmpty(osEnVariable) && string.Equals(osEnVariable, "Windows_NT", StringComparison.OrdinalIgnoreCase)) {
 				executable += ".cmd";
