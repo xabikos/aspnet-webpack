@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Webpack {
 
@@ -8,31 +9,35 @@ namespace Webpack {
 	/// </summary>
 	public class WebpackOptions {
 
-		public WebpackOptions(
-			string entryPoint = "app/index.js",
-			string outputFileName = "bundle.js",
-			bool handleStyles = true) {
+		public WebpackOptions(string entryPoint = "app/index.js", string outputFileName = "bundle.js", bool handleStyles = true) {
 			EntryPoint = entryPoint;
-			OutputFileName = outputFileName;
 			DevToolType = DevToolType.SourceMap;
 			EnableES2015 = true;
 			HandleStyles = handleStyles;
 			DevServerOptions = new WebpackDevServerOptions();
 			StylesTypes = new List<StylesType>();
 			StaticFileTypes = new List<StaticFileType>();
-		}
+            OutputFileName = outputFileName;
+        }
 
-		/// <summary>
-		/// The relative path to applications root
-		/// </summary>
-		public string EntryPoint { get; set; }
+        /// <summary>
+        /// The relative path to applications root
+        /// </summary>
+        public string EntryPoint { get; set; }
 
-		/// <summary>
-		/// The file name of the output bundle
-		/// In order to put the file in a different folder use a relative path e.g. js/webpackBundle.js
-		/// If not specified is "bundle.js"
-		/// </summary>
-		public string OutputFileName { get; set; }
+        /// <summary>
+        /// The file name of a single output bundle
+        /// In order to put the file in a different folder use a relative path e.g. js/webpackBundle.js
+        /// If not specified is "bundle.js"
+        /// </summary>
+        public string OutputFileName { get; set; }
+
+        /// <summary>
+        /// The file names of the output bundles
+        /// In order to put the files in a different folder use a relative path(s) e.g. js/webpackBundle.js
+        /// If not specified, as single bundle, "bundle.js", is used
+        /// </summary>
+        public IEnumerable<string> OutputFileNames { get; set; }
 
 		/// <summary>
 		/// Indicates the type of the development tool will be used by webpack. See http://webpack.github.io/docs/configuration.html#devtool
@@ -68,12 +73,18 @@ namespace Webpack {
 		/// </summary>
 		public bool HandleAngularTemplates { get; set; }
 
-		/// <summary>
-		/// Indicates if webpack should handle the static file types through URL and file loader
-		/// </summary>
-		public bool HandleStaticFiles { get; set; }
+        /// <summary>
+        /// Indicates if webpack should handle the static file types through URL and file loader
+        /// https://webpack.github.io/docs/hot-module-replacement.html
+        /// </summary>
+        public bool HandleStaticFiles { get; set; }
 
-		/// <summary>
+        /// <summary>
+        /// Indicates hot module replacement should be enabled
+        /// </summary>
+	    public bool EnableHotModuleReplacement { get; set; }
+
+	    /// <summary>
 		/// Indicates the limit of the file size in bytes to use with URL loader
 		/// When a file exceeds that limit it will be handled by file loader
 		/// https://github.com/webpack/url-loader
@@ -94,6 +105,28 @@ namespace Webpack {
 		/// The development server configuration options
 		/// </summary>
 		public WebpackDevServerOptions DevServerOptions { get; set; }
+
+        /// <summary>
+        /// Indicates if there are multiple bundles set
+        /// </summary>
+	    public bool HasMultipleBundles()
+        {
+            return OutputFileNames != null && OutputFileNames.Any();
+        }
+
+	    public List<string> GetBundlesList()
+	    {
+            List<string> outputNames;
+            if (!HasMultipleBundles())
+            {
+                outputNames = new List<string> { OutputFileName };
+            }
+            else
+            {
+                outputNames = OutputFileNames as List<string>;
+            }
+	        return outputNames;
+	    }
 	}
 
 	public enum StylesType {

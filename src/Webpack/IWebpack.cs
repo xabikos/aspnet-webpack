@@ -18,5 +18,13 @@ namespace Webpack {
 		/// <param name="outputFileName">The name of the output file</param>
 		/// <param name="devServerOptions">The dev server options in case we need hot loading</param>
 		WebPackMiddlewareOptions Execute(string configFile, string outputFileName, WebpackDevServerOptions devServerOptions);
-	}
+
+        /// <summary>
+        /// Executes the webpack or webpack-dev-server based on an external configuration file.
+        /// </summary>
+        /// <param name="configFile"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        WebPackMiddlewareOptions Execute(string configFile, WebpackOptions options);
+    }
 }

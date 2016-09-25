@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Webpack {
 	public class WebpackMiddleware {
-		RequestDelegate _next;
+	    private readonly RequestDelegate _next;
 		private readonly ILogger _logger;
-		WebPackMiddlewareOptions _options;
+	    private readonly WebPackMiddlewareOptions _options;
 
 		public WebpackMiddleware(RequestDelegate next, ILoggerFactory loggerFactory, WebPackMiddlewareOptions options) {
 			_next = next;
@@ -29,20 +29,12 @@ namespace Webpack {
 			if (context.Response.StatusCode == 200 && isHtml.GetValueOrDefault()) {
 				using (var reader = new StreamReader(buffer)) {
 					var response = await reader.ReadToEndAsync();
-					if (response.Contains("</body>")) {
-						_logger.LogInformation("A full html page is returned so the necessary script for webpack will be injected");
-						var scriptTag = string.Empty;
-						if (_options.EnableHotLoading) {
-							scriptTag = $"<script src=\"http://{_options.Host}:{_options.Port}/{_options.OutputFileName}\"></script>";
-							response = response.Replace("</body>", $"{scriptTag}</body>");
-						}
-						else {
-							scriptTag = $"<script src=\"{_options.OutputFileName}\"></script>";
-							response = response.Replace("</body>", $"{scriptTag}</body>");
-						}
-						_logger.LogInformation($"Inject script {scriptTag} as a last element in the body ");
-					}
-					using (var memStream = new MemoryStream())
+					if (response.Contains("</body>"))
+                    {
+                        _logger.LogInformation("A full html page is returned so the necessary script for webpack will be injected");
+                        response = AddEachScriptTagToHtml(response);
+                    }
+                    using (var memStream = new MemoryStream())
 					using (var writer = new StreamWriter(memStream)) {
 						writer.Write(response);
 						writer.Flush();
@@ -59,5 +51,26 @@ namespace Webpack {
 			// https://github.com/aspnet/KestrelHttpServer/issues/940
 			context.Response.Body = stream;
 		}
-	}
+
+        private string AddEachScriptTagToHtml(string response)
+        {
+            foreach (var fileName in _options.OutputFileNames)
+            {
+                string scriptTag;
+                if (_options.EnableHotLoading)
+                {
+                    scriptTag = $"<script src=\"http://{_options.Host}:{_options.Port}/{fileName}\"></script>";
+                    response = response.Replace("</body>", $"{scriptTag}</body>");
+                }
+                else
+                {
+                    scriptTag = $"<script src=\"{fileName}\"></script>";
+                    response = response.Replace("</body>", $"{scriptTag}</body>");
+                }
+                _logger.LogInformation($"Inject script {scriptTag} as a last element in the body ");
+            }
+
+            return response;
+        }
+    }
 }
