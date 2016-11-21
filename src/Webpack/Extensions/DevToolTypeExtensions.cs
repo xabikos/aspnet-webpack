@@ -22,8 +22,11 @@
 					return "eval-source-map";
 				case DevToolType.SourceMap:
 					return "source-map";
+			    case DevToolType.CheapModuleSourceMap:
+					return "cheap-module-source-map";
+                default:
+					return "source-map";
 			}
-			return "source-map";
 		}
 	}
 }
